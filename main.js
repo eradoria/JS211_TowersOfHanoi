@@ -2,6 +2,7 @@
 
 const assert = require('assert');
 const readline = require('readline');
+const { start } = require('repl');
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -22,6 +23,7 @@ let stacks = {
   c: []
 };
 
+
 // Start here. What is this function doing?
 const printStacks = () => {
   console.log("a: " + stacks.a);
@@ -30,27 +32,45 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+const movePiece = (startStack, endStack) => {
   // Your code here
+  let lastItem = stacks[startStack].pop();
+
+  stacks[endStack].push(lastItem);
+  
+  checkForWin()
 
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (firstMove,secondMove) => {
   // Your code here
+  if(!(stacks[secondMove].length) || (stacks[secondMove][stacks[secondMove].length -1] > stacks[firstMove][stacks[firstMove].length -1])){
+    return true 
+  } else {
+    return false
+  }
 
+  // if (endStack[0] > endStack[1]) {
+  //   return true
+  // } else {
+  //   return false
+  // }
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
-
+  if (stacks.a.length === 0 && stacks.b.length === 4 || stacks.c.length === 4) {
+      return true
+  } else {
+    return false
+  }
 }
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
-  // Your code here
-
+   movePiece(startStack,endStack);
 }
 
 const getPrompt = () => {
